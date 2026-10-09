@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Congress Shadow Portfolio</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/date-fns@3/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<style>
+  :root {
+    --bg: #0b0d12; --panel: #12151c; --border: #232733; --text: #e8eaf0;
+    --muted: #8b93a7; --up: #2ecc71; --down: #e74c3c; --accent: #5b8cff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    padding: 20px;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; }
+  h1 { font-size: 1.3rem; font-weight: 600; margin: 0 0 4px; }
+  .subtitle { color: var(--muted); font-size: 0.85rem; margin-bottom: 20px; }
+  .summary {
+    display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 18px;
+  }
+  .card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
+    padding: 14px 18px; flex: 1; min-width: 140px;
+  }
+  .card .label { color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  .card .value { font-size: 1.4rem; font-weight: 600; margin-top: 4px; }
+  .up { color: var(--up); } .down { color: var(--down); }
+  .ranges { display: flex; gap: 6px; margin-bottom: 12px; }
+  .ranges button {
+    background: var(--panel); border: 1px solid var(--border); color: var(--text);
+    padding: 6px 14px; border-radius: 8px; cursor: pointer; font-size: 0.85rem;
+  }
+  .ranges button.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .chart-card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  table { width: 100%; border-collapse: collapse; margin-top: 24px; font-size: 0.88rem; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); }
+  th { color: var(--muted); font-weight: 500; font-size: 0.75rem; text-transform: uppercase; }
+  .empty { color: var(--muted); padding: 30px; text-align: center; }
+  .section-title { margin: 28px 0 8px; font-size: 1rem; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Congress Shadow Portfolio</h1>
+  <div class="subtitle" id="subtitle">Simulated €<span id="buyAmount">50</span> buys, one per newly disclosed purchase from the top-30 members. Not real money.</div>
+
+  <div class="summary">
+    <div class="card"><div class="label">Current value</div><div class="value" id="totalValue">—</div></div>
+    <div class="card"><div class="label">Invested</div><div class="value" id="totalCost">—</div></div>
+    <div class="card"><div class="label">P&amp;L</div><div class="value" id="totalPnl">—</div></div>
+    <div class="card"><div class="label">Positions</div><div class="value" id="posCount">—</div></div>
+  </div>
+
+  <div class="ranges" id="ranges">
+    <button data-range="1D">1D</button>
+    <button data-range="1W">1W</button>
+    <button data-range="1M" class="active">1M</button>
+    <button data-range="1Y">1Y</button>
+    <button data-range="YTD">YTD</button>
+    <button data-range="ALL">ALL</button>
+  </div>
+
+  <div class="chart-card">
+    <canvas id="chart" height="90"></canvas>
+    <div id="chartEmpty" class="empty" style="display:none;">No portfolio history yet — check back after the first scheduled runs.</div>
+  </div>
+
+  <div class="section-title">Holdings</div>
+  <table id="holdingsTable">
+    <thead><tr><th>Symbol</th><th>Member</th><th>Shares</th><th>Cost</th><th>Value</th><th>P&amp;L</th></tr></thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="section-title">Top 30 watchlist</div>
+  <table id="top30Table">
+    <thead><tr><th>Member</th><th>Chamber</th><th>Avg buy perf.</th><th>Buys tracked</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</div>
+
+<script>
+const fmtUsd = n => n == null ? '—' : n.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
+const fmtPct = n => n == null ? '—' : (n >= 0 ? '+' : '') + n.toFixed(2) + '%';
+
+let history = [];
+let chart = null;
+let currentRange = '1M';
+
+async function loadData() {
+  const [history_, portfolio_, top30_] = await Promise.all([
+    fetch('data/history.json').then(r => r.json()).catch(() => []),
+    fetch('data/portfolio.json').then(r => r.json()).catch(() => []),
+    fetch('data/top_30.json').then(r => r.json()).catch(() => []),
+  ]);
+  history = history_;
+  renderSummary(history);
+  renderHoldingsTable(portfolio_, history);
+  renderTop30(top30_);
+  renderChart();
+}
+
+function renderSummary(hist) {
+  if (!hist.length) return;
+  const latest = hist[hist.length - 1];
+  const pnl = latest.total_value_usd - latest.total_cost_usd;
+  const pnlPct = latest.total_cost_usd ? (pnl / latest.total_cost_usd * 100) : 0;
+  document.getElementById('totalValue').textContent = fmtUsd(latest.total_value_usd);
+  document.getElementById('totalCost').textContent = fmtUsd(latest.total_cost_usd);
+  const pnlEl = document.getElementById('totalPnl');
+  pnlEl.textContent = fmtUsd(pnl) + ' (' + fmtPct(pnlPct) + ')';
+  pnlEl.className = 'value ' + (pnl >= 0 ? 'up' : 'down');
+  document.getElementById('posCount').textContent = (latest.positions || []).length;
+}
+
+function renderHoldingsTable(portfolio, hist) {
+  const tbody = document.querySelector('#holdingsTable tbody');
+  tbody.innerHTML = '';
+  if (!portfolio.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="empty">No positions yet.</td></tr>';
+    return;
+  }
+  const grouped = {};
+  for (const p of portfolio) {
+    grouped[p.symbol] = grouped[p.symbol] || {shares: 0, cost: 0, members: new Set()};
+    grouped[p.symbol].shares += p.shares;
+    grouped[p.symbol].cost += p.cost_usd;
+    grouped[p.symbol].members.add(p.member);
+  }
+  const latestPositions = {};
+  if (hist.length) {
+    for (const pos of (hist[hist.length - 1].positions || [])) latestPositions[pos.symbol] = pos;
+  }
+  for (const [symbol, g] of Object.entries(grouped)) {
+    const live = latestPositions[symbol];
+    const value = live ? live.value_usd : null;
+    const pnl = value != null ? value - g.cost : null;
+    const pnlPct = pnl != null && g.cost ? (pnl / g.cost * 100) : null;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${symbol}</td><td>${[...g.members].join(', ')}</td>
+      <td>${g.shares.toFixed(4)}</td><td>${fmtUsd(g.cost)}</td><td>${fmtUsd(value)}</td>
+      <td class="${pnl >= 0 ? 'up' : 'down'}">${fmtUsd(pnl)} (${fmtPct(pnlPct)})</td>`;
+    tbody.appendChild(tr);
+  }
+}
+
+function renderTop30(top30) {
+  const tbody = document.querySelector('#top30Table tbody');
+  tbody.innerHTML = '';
+  if (!top30.length) {
+    tbody.innerHTML = '<tr><td colspan="4" class="empty">Ranking not generated yet.</td></tr>';
+    return;
+  }
+  for (const m of top30) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${m.member}</td><td>${m.chamber}</td>
+      <td class="${m.avg_buy_perf_pct >= 0 ? 'up' : 'down'}">${fmtPct(m.avg_buy_perf_pct)}</td>
+      <td>${m.buys}</td>`;
+    tbody.appendChild(tr);
+  }
+}
+
+function rangeCutoff(range) {
+  const now = new Date();
+  switch (range) {
+    case '1D': return new Date(now - 1 * 24 * 3600 * 1000);
+    case '1W': return new Date(now - 7 * 24 * 3600 * 1000);
+    case '1M': return new Date(now - 30 * 24 * 3600 * 1000);
+    case '1Y': return new Date(now - 365 * 24 * 3600 * 1000);
+    case 'YTD': return new Date(now.getFullYear(), 0, 1);
+    default: return null; // ALL
+  }
+}
+
+function renderChart() {
+  const cutoff = rangeCutoff(currentRange);
+  const points = history
+    .filter(h => !cutoff || new Date(h.ts) >= cutoff)
+    .map(h => ({x: new Date(h.ts), y: h.total_value_usd}));
+
+  document.getElementById('chartEmpty').style.display = points.length ? 'none' : 'block';
+  document.getElementById('chart').style.display = points.length ? 'block' : 'none';
+  if (!points.length) return;
+
+  const costPoints = history
+    .filter(h => !cutoff || new Date(h.ts) >= cutoff)
+    .map(h => ({x: new Date(h.ts), y: h.total_cost_usd}));
+
+  if (chart) chart.destroy();
+  chart = new Chart(document.getElementById('chart'), {
+    type: 'line',
+    data: {
+      datasets: [
+        {
+          label: 'Portfolio value', data: points, borderColor: '#5b8cff',
+          backgroundColor: 'rgba(91,140,255,0.08)', fill: true, tension: 0.2, pointRadius: 0, borderWidth: 2,
+        },
+        {
+          label: 'Invested', data: costPoints, borderColor: '#8b93a7',
+          borderDash: [4, 4], fill: false, tension: 0, pointRadius: 0, borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      interaction: {mode: 'index', intersect: false},
+      scales: {
+        x: {type: 'time', grid: {color: '#232733'}, ticks: {color: '#8b93a7'}},
+        y: {grid: {color: '#232733'}, ticks: {color: '#8b93a7', callback: v => fmtUsd(v)}},
+      },
+      plugins: {
+        legend: {labels: {color: '#e8eaf0'}},
+        tooltip: {callbacks: {label: ctx => `${ctx.dataset.label}: ${fmtUsd(ctx.parsed.y)}`}},
+      },
+    },
+  });
+}
+
+document.getElementById('ranges').addEventListener('click', e => {
+  if (e.target.tagName !== 'BUTTON') return;
+  document.querySelectorAll('#ranges button').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  currentRange = e.target.dataset.range;
+  renderChart();
+});
+
+loadData();
+setInterval(loadData, 5 * 60 * 1000); // refresh from the repo's data every 5 min while the page is open
+</script>
+</body>
+</html>
