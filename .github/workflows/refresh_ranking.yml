@@ -1,0 +1,40 @@
+yaml
+name: Refresh ranking
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  refresh-ranking:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r scripts/requirements.txt
+
+      - name: Run refresh_ranking.py
+        env:
+          BARGO_API_KEY: ${{ secrets.BARGO_API_KEY }}
+          MIN_TRADES_TO_QUALIFY: ${{ vars.MIN_TRADES_TO_QUALIFY || '3' }}
+          MAX_MEMBERS_TO_PROFILE: ${{ vars.MAX_MEMBERS_TO_PROFILE || '90' }}
+          TOP_N: ${{ vars.TOP_N || '30' }}
+        working-directory: scripts
+        run: python refresh_ranking.py
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/data
+          git diff --cached --quiet || git commit -m "Auto: refresh ranking"
+          git push
