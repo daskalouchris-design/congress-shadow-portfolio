@@ -1,1 +1,191 @@
-[]
+[
+  {
+    "member": "Tony Wied",
+    "member_slug": "tony-wied",
+    "chamber": "house",
+    "state": "WI08",
+    "trades": 9,
+    "buys": 3,
+    "avg_buy_perf_pct": 11.84
+  },
+  {
+    "member": "Scott Scott Franklin",
+    "member_slug": "scott-scott-franklin",
+    "chamber": "house",
+    "state": "FL18",
+    "trades": 9,
+    "buys": 6,
+    "avg_buy_perf_pct": 9.9
+  },
+  {
+    "member": "Lloyd Doggett",
+    "member_slug": "lloyd-doggett",
+    "chamber": "house",
+    "state": "TX37",
+    "trades": 4,
+    "buys": 4,
+    "avg_buy_perf_pct": 8.35
+  },
+  {
+    "member": "Kevin Hern",
+    "member_slug": "kevin-hern",
+    "chamber": "house",
+    "state": "OK01",
+    "trades": 133,
+    "buys": 2,
+    "avg_buy_perf_pct": 6.82
+  },
+  {
+    "member": "Rick Larsen",
+    "member_slug": "rick-larsen",
+    "chamber": "house",
+    "state": "WA02",
+    "trades": 4,
+    "buys": 2,
+    "avg_buy_perf_pct": 4.25
+  },
+  {
+    "member": "Michael T. McCaul",
+    "member_slug": "michael-t-mccaul",
+    "chamber": "house",
+    "state": "TX10",
+    "trades": 36,
+    "buys": 13,
+    "avg_buy_perf_pct": 3.8
+  },
+  {
+    "member": "RICHARD  BLUMENTHAL",
+    "member_slug": "richard-blumenthal",
+    "chamber": "senate",
+    "state": "CT",
+    "trades": 14,
+    "buys": 1,
+    "avg_buy_perf_pct": 2.98
+  },
+  {
+    "member": "Jonathan Jackson",
+    "member_slug": "jonathan-jackson",
+    "chamber": "house",
+    "state": "IL01",
+    "trades": 7,
+    "buys": 3,
+    "avg_buy_perf_pct": 0.89
+  },
+  {
+    "member": "Rohit Khanna",
+    "member_slug": "rohit-khanna",
+    "chamber": "house",
+    "state": "CA17",
+    "trades": 120,
+    "buys": 56,
+    "avg_buy_perf_pct": 0.81
+  },
+  {
+    "member": "David J. Taylor",
+    "member_slug": "david-j-taylor",
+    "chamber": "house",
+    "state": "OH02",
+    "trades": 32,
+    "buys": 21,
+    "avg_buy_perf_pct": 0.15
+  },
+  {
+    "member": "Josh Gottheimer",
+    "member_slug": "josh-gottheimer",
+    "chamber": "house",
+    "state": "NJ05",
+    "trades": 9,
+    "buys": 5,
+    "avg_buy_perf_pct": 0.08
+  },
+  {
+    "member": "Gilbert Cisneros",
+    "member_slug": "gilbert-cisneros",
+    "chamber": "house",
+    "state": "CA31",
+    "trades": 100,
+    "buys": 53,
+    "avg_buy_perf_pct": -0.26
+  },
+  {
+    "member": "Lisa McClain",
+    "member_slug": "lisa-mcclain",
+    "chamber": "house",
+    "state": "MI09",
+    "trades": 9,
+    "buys": 8,
+    "avg_buy_perf_pct": -2.39
+  },
+  {
+    "member": "John Boozman",
+    "member_slug": "john-boozman",
+    "chamber": "senate",
+    "state": "AR",
+    "trades": 20,
+    "buys": 10,
+    "avg_buy_perf_pct": -2.63
+  },
+  {
+    "member": "Maria Elvira Salazar",
+    "member_slug": "maria-elvira-salazar",
+    "chamber": "house",
+    "state": "FL27",
+    "trades": 52,
+    "buys": 14,
+    "avg_buy_perf_pct": -2.82
+  },
+  {
+    "member": "Cleo Fields",
+    "member_slug": "cleo-fields",
+    "chamber": "house",
+    "state": "LA06",
+    "trades": 10,
+    "buys": 10,
+    "avg_buy_perf_pct": -6.1
+  },
+  {
+    "member": "Michael Rulli",
+    "member_slug": "michael-rulli",
+    "chamber": "house",
+    "state": "OH06",
+    "trades": 9,
+    "buys": 2,
+    "avg_buy_perf_pct": -8.29
+  },
+  {
+    "member": "April McClain Delaney",
+    "member_slug": "april-mcclain-delaney",
+    "chamber": "house",
+    "state": "MD06",
+    "trades": 65,
+    "buys": 17,
+    "avg_buy_perf_pct": -10.75
+  },
+  {
+    "member": "Thomas H. Kean Jr",
+    "member_slug": "thomas-h-kean-jr",
+    "chamber": "house",
+    "state": "NJ07",
+    "trades": 6,
+    "buys": 2,
+    "avg_buy_perf_pct": -12.85
+  },
+  {
+    "member": "Richard W. Allen",
+    "member_slug": "richard-w-allen",
+    "chamber": "house",
+    "state": "GA12",
+    "trades": 4,
+    "buys": 2,
+    "avg_buy_perf_pct": -13.49
+  },
+  {
+    "member": "Byron Donalds",
+    "member_slug": "byron-donalds",
+    "chamber": "house",
+    "state": "FL19",
+    "trades": 6,
+    "buys": 2,
+    "avg_buy_perf_pct": -16.35
+  }
+]
