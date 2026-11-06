@@ -2533,5 +2533,57 @@
     "shares": 0.18568306734653334,
     "cost_eur": 50.0,
     "cost_usd": 56.08
+  },
+  {
+    "member": "Maria Elvira Salazar",
+    "member_slug": "maria-elvira-salazar",
+    "chamber": "house",
+    "symbol": "PG",
+    "buy_date": "2026-11-06",
+    "disclosed_transaction_date": "2026-10-23",
+    "disclosure_date": "2026-11-05",
+    "buy_price_usd": 167.1,
+    "shares": 0.3358467983243567,
+    "cost_eur": 50.0,
+    "cost_usd": 56.120000000000005
+  },
+  {
+    "member": "Maria Elvira Salazar",
+    "member_slug": "maria-elvira-salazar",
+    "chamber": "house",
+    "symbol": "PG",
+    "buy_date": "2026-11-06",
+    "disclosed_transaction_date": "2026-10-23",
+    "disclosure_date": "2026-11-05",
+    "buy_price_usd": 167.1,
+    "shares": 0.3358467983243567,
+    "cost_eur": 50.0,
+    "cost_usd": 56.120000000000005
+  },
+  {
+    "member": "Maria Elvira Salazar",
+    "member_slug": "maria-elvira-salazar",
+    "chamber": "house",
+    "symbol": "NVDA",
+    "buy_date": "2026-11-06",
+    "disclosed_transaction_date": "2026-10-23",
+    "disclosure_date": "2026-11-05",
+    "buy_price_usd": 181.6,
+    "shares": 0.3090308370044053,
+    "cost_eur": 50.0,
+    "cost_usd": 56.120000000000005
+  },
+  {
+    "member": "Maria Elvira Salazar",
+    "member_slug": "maria-elvira-salazar",
+    "chamber": "house",
+    "symbol": "NVDA",
+    "buy_date": "2026-11-06",
+    "disclosed_transaction_date": "2026-10-23",
+    "disclosure_date": "2026-11-05",
+    "buy_price_usd": 181.6,
+    "shares": 0.3090308370044053,
+    "cost_eur": 50.0,
+    "cost_usd": 56.120000000000005
   }
 ]
