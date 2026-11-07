@@ -2585,5 +2585,31 @@
     "shares": 0.3090308370044053,
     "cost_eur": 50.0,
     "cost_usd": 56.120000000000005
+  },
+  {
+    "member": "Josh Gottheimer",
+    "member_slug": "josh-gottheimer",
+    "chamber": "house",
+    "symbol": "AMAT",
+    "buy_date": "2026-11-07",
+    "disclosed_transaction_date": "2026-10-26",
+    "disclosure_date": "2026-11-05",
+    "buy_price_usd": 332.72,
+    "shares": 0.16778372204856937,
+    "cost_eur": 50.0,
+    "cost_usd": 55.825
+  },
+  {
+    "member": "Josh Gottheimer",
+    "member_slug": "josh-gottheimer",
+    "chamber": "house",
+    "symbol": "BHE",
+    "buy_date": "2026-11-07",
+    "disclosed_transaction_date": "2026-10-12",
+    "disclosure_date": "2026-11-05",
+    "buy_price_usd": 60.4,
+    "shares": 0.9242549668874173,
+    "cost_eur": 50.0,
+    "cost_usd": 55.825
   }
 ]
