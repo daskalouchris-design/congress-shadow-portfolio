@@ -187,5 +187,14 @@
     "trades": 6,
     "buys": 2,
     "avg_buy_perf_pct": -16.35
+  },
+  {
+    "member": "John J Mr McGuire III",
+    "member_slug": "john-j-mr-mcguire-iii",
+    "chamber": "house",
+    "state": "VA05",
+    "trades": 6,
+    "buys": 4,
+    "avg_buy_perf_pct": -31.14
   }
 ]
