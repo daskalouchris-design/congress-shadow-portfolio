@@ -3092,5 +3092,18 @@
     "shares": 0.8840775464802161,
     "cost_eur": 50.0,
     "cost_usd": 55.635
+  },
+  {
+    "member": "Lloyd Doggett",
+    "member_slug": "lloyd-doggett",
+    "chamber": "house",
+    "symbol": "KO",
+    "buy_date": "2026-11-13",
+    "disclosed_transaction_date": "2026-10-01",
+    "disclosure_date": "2026-11-11",
+    "buy_price_usd": 97.44,
+    "shares": 0.5686063218390804,
+    "cost_eur": 50.0,
+    "cost_usd": 55.405
   }
 ]
