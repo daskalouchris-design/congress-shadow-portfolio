@@ -12,5 +12,19 @@
         "value_usd": null
       }
     ]
+  },
+  {
+    "ts": "2026-11-18T04:17:56+00:00",
+    "total_cost_usd": 54.95,
+    "total_value_usd": 0.0,
+    "positions": [
+      {
+        "symbol": "DDOG",
+        "shares": 0.31785838250607423,
+        "cost_usd": 54.945,
+        "price_usd": null,
+        "value_usd": null
+      }
+    ]
   }
 ]
