@@ -43,12 +43,37 @@
   th { color: var(--muted); font-weight: 500; font-size: 0.75rem; text-transform: uppercase; }
   .empty { color: var(--muted); padding: 30px; text-align: center; }
   .section-title { margin: 28px 0 8px; font-size: 1rem; font-weight: 600; }
+  .banner {
+    display: none; margin-bottom: 16px; padding: 12px 16px; border-radius: 10px;
+    background: rgba(91,140,255,0.12); border: 1px solid var(--accent); font-size: 0.92rem;
+  }
+  .banner.show { display: block; }
+  .buys { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; }
+  .buy {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    padding: 10px 16px; border-bottom: 1px solid var(--border); font-size: 0.9rem;
+  }
+  .buy:last-child { border-bottom: none; }
+  .buy.is-new { background: rgba(91,140,255,0.10); }
+  .buy .what b { font-weight: 600; }
+  .buy .meta { color: var(--muted); font-size: 0.78rem; margin-top: 2px; }
+  .buy .amt { color: var(--muted); font-size: 0.82rem; white-space: nowrap; text-align: right; }
+  .tag {
+    display: inline-block; background: var(--accent); color: #fff; font-size: 0.65rem; font-weight: 600;
+    padding: 1px 6px; border-radius: 6px; margin-left: 8px; vertical-align: middle; letter-spacing: 0.04em;
+  }
+  .more-btn {
+    background: none; border: none; color: var(--accent); cursor: pointer; font-size: 0.85rem;
+    padding: 8px 16px;
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>Congress Shadow Portfolio</h1>
   <div class="subtitle" id="subtitle">Simulated €<span id="buyAmount">50</span> buys, one per newly disclosed purchase from the top-30 members. Not real money.</div>
+
+  <div class="banner" id="newBanner"></div>
 
   <div class="summary">
     <div class="card"><div class="label">Current value</div><div class="value" id="totalValue">—</div></div>
@@ -71,6 +96,10 @@
     <div id="chartEmpty" class="empty" style="display:none;">No portfolio history yet — check back after the first scheduled runs.</div>
   </div>
 
+  <div class="section-title">New buys</div>
+  <div class="buys" id="buysList"><div class="empty">No buys yet.</div></div>
+  <button class="more-btn" id="moreBtn" style="display:none;">Show all</button>
+
   <div class="section-title">Holdings</div>
   <table id="holdingsTable">
     <thead><tr><th>Symbol</th><th>Member</th><th>Shares</th><th>Cost</th><th>Value</th><th>P&amp;L</th></tr></thead>
@@ -92,17 +121,107 @@ let history = [];
 let chart = null;
 let currentRange = '1M';
 
+// ---- "New buys" feed ----------------------------------------------------
+// Remembers (in this browser only) how many buys you had seen at your last
+// visit, so buys that arrived since then get a NEW tag and a banner.
+let baselineSeen;          // undefined = not read yet, null = first ever visit
+let buysExpanded = false;
+let lastBuys = [];
+
+function readSeen() {
+  try {
+    const v = localStorage.getItem('seenBuys');
+    return v === null ? null : parseInt(v, 10);
+  } catch (e) { return null; }
+}
+function writeSeen(n) {
+  try { localStorage.setItem('seenBuys', String(n)); } catch (e) {}
+}
+
+function renderBuys(portfolio) {
+  if (baselineSeen === undefined) baselineSeen = readSeen();
+  lastBuys = portfolio;
+  const total = portfolio.length;
+  const newCount = baselineSeen === null ? 0 : Math.max(0, total - baselineSeen);
+
+  const banner = document.getElementById('newBanner');
+  if (newCount > 0) {
+    banner.textContent = '\u{1F514} ' + newCount + (newCount === 1 ? ' new buy' : ' new buys') + ' since your last visit';
+    banner.classList.add('show');
+  } else {
+    banner.classList.remove('show');
+  }
+
+  const box = document.getElementById('buysList');
+  box.innerHTML = '';
+  if (!total) {
+    box.innerHTML = '<div class="empty">No buys yet.</div>';
+    document.getElementById('moreBtn').style.display = 'none';
+    return;
+  }
+
+  const items = portfolio.map((p, i) => ({p, i})).reverse();   // newest first
+  const shown = buysExpanded ? items : items.slice(0, 10);
+  for (const {p, i} of shown) {
+    const row = document.createElement('div');
+    row.className = 'buy' + (i >= total - newCount ? ' is-new' : '');
+
+    const what = document.createElement('div');
+    what.className = 'what';
+    const head = document.createElement('div');
+    const sym = document.createElement('b');
+    sym.textContent = p.symbol;
+    head.appendChild(sym);
+    head.appendChild(document.createTextNode(' · ' + (p.member || 'Unknown')));
+    if (i >= total - newCount) {
+      const tag = document.createElement('span');
+      tag.className = 'tag';
+      tag.textContent = 'NEW';
+      head.appendChild(tag);
+    }
+    const meta = document.createElement('div');
+    meta.className = 'meta';
+    meta.textContent = 'Disclosed ' + (p.disclosure_date || '—') +
+      ' · traded ' + (p.disclosed_transaction_date || '—') +
+      ' · bought ' + (p.buy_date || '—');
+    what.appendChild(head);
+    what.appendChild(meta);
+
+    const amt = document.createElement('div');
+    amt.className = 'amt';
+    amt.textContent = '€' + (p.cost_eur != null ? p.cost_eur : '—') + ' @ ' + fmtUsd(p.buy_price_usd);
+
+    row.appendChild(what);
+    row.appendChild(amt);
+    box.appendChild(row);
+  }
+
+  const btn = document.getElementById('moreBtn');
+  btn.style.display = items.length > 10 ? 'inline-block' : 'none';
+  btn.textContent = buysExpanded ? 'Show fewer' : 'Show all ' + items.length;
+}
+
+document.getElementById('moreBtn').addEventListener('click', () => {
+  buysExpanded = !buysExpanded;
+  renderBuys(lastBuys);
+});
+
 async function loadData() {
   const [history_, portfolio_, top30_] = await Promise.all([
     fetch('data/history.json').then(r => r.json()).catch(() => []),
-    fetch('data/portfolio.json').then(r => r.json()).catch(() => []),
+    fetch('data/portfolio.json').then(r => { if (!r.ok) throw new Error(r.status); return r.json(); }).catch(() => null),
     fetch('data/top_30.json').then(r => r.json()).catch(() => []),
   ]);
   history = history_;
+  const portfolio = portfolio_ || [];
   renderSummary(history);
-  renderHoldingsTable(portfolio_, history);
+  renderBuys(portfolio);
+  renderHoldingsTable(portfolio, history);
   renderTop30(top30_);
   renderChart();
+  // Only remember the count if the data really loaded, so a failed fetch
+  // can never make every buy look new on the next visit.
+  if (portfolio_ !== null) writeSeen(portfolio.length);
 }
 
 function renderSummary(hist) {
