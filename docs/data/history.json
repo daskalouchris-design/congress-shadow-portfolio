@@ -530,5 +530,82 @@
         "value_usd": null
       }
     ]
+  },
+  {
+    "ts": "2026-11-20T20:13:57+00:00",
+    "total_cost_usd": 604.41,
+    "total_value_usd": 528.28,
+    "positions": [
+      {
+        "symbol": "DDOG",
+        "shares": 0.31785838250607423,
+        "cost_usd": 54.945,
+        "price_usd": 158.63409423828125,
+        "value_usd": 50.42317660489623
+      },
+      {
+        "symbol": "GOOG",
+        "shares": 0.39585734870317,
+        "cost_usd": 109.89,
+        "price_usd": 267.239990234375,
+        "value_usd": 105.78891400164073
+      },
+      {
+        "symbol": "FOXA",
+        "shares": 0.8242574257425743,
+        "cost_usd": 54.945,
+        "price_usd": 62.95000076293945,
+        "value_usd": 51.88700557935356
+      },
+      {
+        "symbol": "CMCSA",
+        "shares": 2.170881074674042,
+        "cost_usd": 54.945,
+        "price_usd": 25.059900283813477,
+        "value_usd": 54.40206325934933
+      },
+      {
+        "symbol": "ARE",
+        "shares": 1.2964841906559696,
+        "cost_usd": 54.945,
+        "price_usd": 40.91999816894531,
+        "value_usd": 53.05213070770883
+      },
+      {
+        "symbol": "SONY",
+        "shares": 2.059407796101949,
+        "cost_usd": 54.945,
+        "price_usd": 27.415000915527344,
+        "value_usd": 56.458666615579084
+      },
+      {
+        "symbol": "EL",
+        "shares": 0.5256888633754305,
+        "cost_usd": 54.945,
+        "price_usd": 100.0999984741211,
+        "value_usd": 52.621454421743046
+      },
+      {
+        "symbol": "META",
+        "shares": 0.08878278152115954,
+        "cost_usd": 54.945,
+        "price_usd": 563.3400268554688,
+        "value_usd": 50.01489452643323
+      },
+      {
+        "symbol": "MRAAF",
+        "shares": 1.7920743639921721,
+        "cost_usd": 54.945,
+        "price_usd": null,
+        "value_usd": null
+      },
+      {
+        "symbol": "MSFT",
+        "shares": 0.1102950030102348,
+        "cost_usd": 54.96,
+        "price_usd": 486.2799987792969,
+        "value_usd": 53.63425392917952
+      }
+    ]
   }
 ]
