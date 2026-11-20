@@ -128,5 +128,18 @@
     "shares": 1.7920743639921721,
     "cost_eur": 50.0,
     "cost_usd": 54.945
+  },
+  {
+    "member": "Michael Rulli",
+    "member_slug": "michael-rulli",
+    "chamber": "house",
+    "symbol": "MSFT",
+    "buy_date": "2026-11-20",
+    "disclosed_transaction_date": "2026-11-04",
+    "disclosure_date": "2026-11-18",
+    "buy_price_usd": 498.3,
+    "shares": 0.1102950030102348,
+    "cost_eur": 50.0,
+    "cost_usd": 54.96
   }
 ]
