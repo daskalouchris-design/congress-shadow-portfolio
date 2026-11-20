@@ -460,5 +460,75 @@
         "value_usd": null
       }
     ]
+  },
+  {
+    "ts": "2026-11-20T11:40:44+00:00",
+    "total_cost_usd": 549.45,
+    "total_value_usd": 483.19,
+    "positions": [
+      {
+        "symbol": "DDOG",
+        "shares": 0.31785838250607423,
+        "cost_usd": 54.945,
+        "price_usd": 166.42999267578125,
+        "value_usd": 52.90116827242161
+      },
+      {
+        "symbol": "GOOG",
+        "shares": 0.39585734870317,
+        "cost_usd": 109.89,
+        "price_usd": 270.7699890136719,
+        "value_usd": 107.18628995933862
+      },
+      {
+        "symbol": "FOXA",
+        "shares": 0.8242574257425743,
+        "cost_usd": 54.945,
+        "price_usd": 63.720001220703125,
+        "value_usd": 52.52168417449045
+      },
+      {
+        "symbol": "CMCSA",
+        "shares": 2.170881074674042,
+        "cost_usd": 54.945,
+        "price_usd": 24.85300064086914,
+        "value_usd": 53.952908740124656
+      },
+      {
+        "symbol": "ARE",
+        "shares": 1.2964841906559696,
+        "cost_usd": 54.945,
+        "price_usd": 41.779998779296875,
+        "value_usd": 54.16710790298411
+      },
+      {
+        "symbol": "SONY",
+        "shares": 2.059407796101949,
+        "cost_usd": 54.945,
+        "price_usd": 27.204999923706055,
+        "value_usd": 56.026188935833176
+      },
+      {
+        "symbol": "EL",
+        "shares": 0.5256888633754305,
+        "cost_usd": 54.945,
+        "price_usd": 101.78500366210938,
+        "value_usd": 53.50724288379831
+      },
+      {
+        "symbol": "META",
+        "shares": 0.08878278152115954,
+        "cost_usd": 54.945,
+        "price_usd": 596.1900024414062,
+        "value_usd": 52.93140673185494
+      },
+      {
+        "symbol": "MRAAF",
+        "shares": 1.7920743639921721,
+        "cost_usd": 54.945,
+        "price_usd": null,
+        "value_usd": null
+      }
+    ]
   }
 ]
