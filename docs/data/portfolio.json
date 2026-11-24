@@ -141,5 +141,31 @@
     "shares": 0.1102950030102348,
     "cost_eur": 50.0,
     "cost_usd": 54.96
+  },
+  {
+    "member": "Byron Donalds",
+    "member_slug": "byron-donalds",
+    "chamber": "house",
+    "symbol": "IBKR",
+    "buy_date": "2026-11-24",
+    "disclosed_transaction_date": "2026-10-02",
+    "disclosure_date": "2026-11-16",
+    "buy_price_usd": 76.04,
+    "shares": 0.7192924776433457,
+    "cost_eur": 50.0,
+    "cost_usd": 54.69500000000001
+  },
+  {
+    "member": "Byron Donalds",
+    "member_slug": "byron-donalds",
+    "chamber": "house",
+    "symbol": "IBKR",
+    "buy_date": "2026-11-24",
+    "disclosed_transaction_date": "2026-10-02",
+    "disclosure_date": "2026-11-16",
+    "buy_price_usd": 76.04,
+    "shares": 0.7192924776433457,
+    "cost_eur": 50.0,
+    "cost_usd": 54.69500000000001
   }
 ]
