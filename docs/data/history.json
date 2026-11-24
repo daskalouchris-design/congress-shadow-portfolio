@@ -1461,5 +1461,89 @@
         "value_usd": 110.03736015673002
       }
     ]
+  },
+  {
+    "ts": "2026-11-24T17:41:01+00:00",
+    "total_cost_usd": 713.8,
+    "total_value_usd": 657.8,
+    "positions": [
+      {
+        "symbol": "DDOG",
+        "shares": 0.31785838250607423,
+        "cost_usd": 54.945,
+        "price_usd": 168.9600067138672,
+        "value_usd": 53.70535444228527
+      },
+      {
+        "symbol": "GOOG",
+        "shares": 0.39585734870317,
+        "cost_usd": 109.89,
+        "price_usd": 276.8800048828125,
+        "value_usd": 109.60498464183092
+      },
+      {
+        "symbol": "FOXA",
+        "shares": 0.8242574257425743,
+        "cost_usd": 54.945,
+        "price_usd": 65.93000030517578,
+        "value_usd": 54.34329233075133
+      },
+      {
+        "symbol": "CMCSA",
+        "shares": 2.170881074674042,
+        "cost_usd": 54.945,
+        "price_usd": 25.610000610351562,
+        "value_usd": 55.59626564740287
+      },
+      {
+        "symbol": "ARE",
+        "shares": 1.2964841906559696,
+        "cost_usd": 54.945,
+        "price_usd": 42.25,
+        "value_usd": 54.77645705521472
+      },
+      {
+        "symbol": "SONY",
+        "shares": 2.059407796101949,
+        "cost_usd": 54.945,
+        "price_usd": 27.825000762939453,
+        "value_usd": 57.30302349774019
+      },
+      {
+        "symbol": "EL",
+        "shares": 0.5256888633754305,
+        "cost_usd": 54.945,
+        "price_usd": 107.56999969482422,
+        "value_usd": 56.54835087286755
+      },
+      {
+        "symbol": "META",
+        "shares": 0.08878278152115954,
+        "cost_usd": 54.945,
+        "price_usd": 594.489990234375,
+        "value_usd": 52.780474919494786
+      },
+      {
+        "symbol": "MRAAF",
+        "shares": 1.7920743639921721,
+        "cost_usd": 54.945,
+        "price_usd": null,
+        "value_usd": null
+      },
+      {
+        "symbol": "MSFT",
+        "shares": 0.1102950030102348,
+        "cost_usd": 54.96,
+        "price_usd": 499.739990234375,
+        "value_usd": 55.1188237272351
+      },
+      {
+        "symbol": "IBKR",
+        "shares": 1.4385849552866914,
+        "cost_usd": 109.39000000000001,
+        "price_usd": 75.09030151367188,
+        "value_usd": 108.02377804550983
+      }
+    ]
   }
 ]
